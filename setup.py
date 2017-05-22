@@ -17,4 +17,4 @@ setup(name='syslogssl',
       packages=['syslogssl'],
       install_requires=[ ],
       include_package_data=True,
-      zip_safe=True)
+      zip_safe=False)
