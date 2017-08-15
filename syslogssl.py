@@ -215,7 +215,7 @@ class SSLSysLogHandler(logging.handlers.SysLogHandler):
     except(KeyboardInterrupt, SystemExit):
       raise
     except (ssl.SSLError, socket.error):
-      if self._rety():
+      if self._retry():
           raise
     except:
       self.handleError(record)
