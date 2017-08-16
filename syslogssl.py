@@ -178,6 +178,13 @@ class SSLSysLogHandler(logging.handlers.SysLogHandler):
           return True
 
       self.is_retrying = True
+      self._close()
+      self._connect()
+      self.emit(self, record)
+      self.is_retrying = False
+      return False
+
+  def _close(self):
       if self.socket is not None:
           try:
             self.socket.close()
@@ -186,10 +193,9 @@ class SSLSysLogHandler(logging.handlers.SysLogHandler):
           finally:
               self.socket = None
 
-      self._connect()
-      self.emit(self, record)
-      self.is_retrying = False
-      return False
+  def close(self):
+    self._close()
+    logging.Handler.close(self)
 
   def close(self):
     self.socket.close()
