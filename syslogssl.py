@@ -161,6 +161,8 @@ class SSLSysLogHandler(logging.handlers.SysLogHandler):
 
     self.unixsocket = 0
     self.socket = None
+    self.is_retrying = False
+
 
   def _connect(self):
       s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -173,6 +175,7 @@ class SSLSysLogHandler(logging.handlers.SysLogHandler):
           self.socket = ssl.wrap_socket(s, cert_reqs=ssl.CERT_NONE)
       self.socket.connect( self.address )
 
+
   def _retry(self, record):
       if self.is_retrying and self.allows_retries:
           return True
@@ -184,6 +187,7 @@ class SSLSysLogHandler(logging.handlers.SysLogHandler):
       self.is_retrying = False
       return False
 
+
   def _close(self):
       if self.socket is not None:
           try:
@@ -192,6 +196,7 @@ class SSLSysLogHandler(logging.handlers.SysLogHandler):
               pass # Sometimes sockets are already closed
           finally:
               self.socket = None
+
 
   def close(self):
     self._close()
