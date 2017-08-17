@@ -202,10 +202,6 @@ class SSLSysLogHandler(logging.handlers.SysLogHandler):
     self._close()
     logging.Handler.close(self)
 
-  def close(self):
-    self.socket.close()
-    logging.Handler.close(self)
-
 
   def emit(self, record):
     if self.socket is None:
