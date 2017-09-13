@@ -183,7 +183,7 @@ class SSLSysLogHandler(logging.handlers.SysLogHandler):
       self.is_retrying = True
       self._close()
       self._connect()
-      self.emit(self, record)
+      self.emit( record )
       self.is_retrying = False
       return False
 
