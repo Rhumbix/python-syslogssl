@@ -8,5 +8,5 @@ setup(name='syslogssl',
       url='https://github.com/lhl/python-syslogssl',
       author='lhl',
       license='MIT',
-      install_requires=[ ]
+      install_requires=[ 'pytz' ]
       )
