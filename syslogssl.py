@@ -176,9 +176,10 @@ class SSLSysLogHandler(logging.handlers.SysLogHandler):
 
       try:
           self.socket.connect( self.address )
-      except:
+      except Exception as e:
           self.socket = None
-          self._connect()
+          # Immediate reconnection isn't the right approach and neither is printing to the stdout
+          print( "Warning: failed to connect because " + str(e) )
 
 
   def _retry(self, record):
